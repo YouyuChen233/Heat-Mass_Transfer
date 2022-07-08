@@ -1,2 +1,7 @@
 # Heat-Mass_Transfer
-Heu Deyi, deine BA.
+Hey Deyi, das ist deine BA.
+## Datei
+- Main.m ist die Gleichungen.
+- Parameter.m ist die Parameter, die du konfigurieren kannst.
+## Achtung!
+y_w_int ist noch kein Array.
