@@ -1,5 +1,7 @@
 clc;clear;
+%Dimension
 ndim=20;
+%Parameter
 alpha_feL=0.1;
 pho_feL=0.1;
 c_p_fel=0.1;
@@ -19,3 +21,8 @@ delta_h0=0.3;
 c_p_H2O=0.99;
 delta_x=0.5;
 delta_y=0.4;
+pho_w=1;
+mu_w=4;
+g=9.8;
+theta=0.5;
+tau_delta=2;
