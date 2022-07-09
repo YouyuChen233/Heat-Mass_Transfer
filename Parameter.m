@@ -25,4 +25,6 @@ pho_w=1;
 mu_w=4;
 g=9.8;
 theta=0.5;
-tau_delta=2;
+f_feL=0.5*ones(ndim,1);
+G_feL=0.5*ones(ndim,1);
+d_h=0.1;
