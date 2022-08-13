@@ -130,4 +130,46 @@ phi_LD=(1+(eta_trL/eta_D)^0.5*(M_D/M_trL)^0.25)^2/(8*(1+M_trL/M_D))^0.5;
 phi_DL=(1+(eta_D/eta_trL)^0.5*(M_trL/M_D)^0.25)^2/(8*(1+M_D/M_trL))^0.5;
 eta_feL=y_trL*eta_trL/(y_trL+y_D*phi_LD)+y_D*eta_D/(y_D+y_trL*phi_DL);
 
-clearvars -except dm_feL dm_w h_w dm_kond delta_film eta_feL eta_D eta_trL
+%% 2.Wärmeleitfähigkeit
+% 2.1 Wärmeleitfähigkeit der trockenen Luft
+lambda_0=N(1)*eta_0+N(2)*tau^(t(2))+N(3)*tau^(t(3));
+lambda_r=0;
+lambda_c=0;
+tau=T_c/T_feL_m;
+delta=rho_trL/rho_c;
+for i=4:size(Therm,1)
+    if(abs(l(i))<eps)
+        gamma=0;
+    else
+        gamma=1;
+    end
+    lambda_r=lambda_r+N(i)*tau^(t(i))*delta^(d(i))*exp(-gamma*delta^(l(i)));
+end
+
+lambda_trL=lambda_0+lambda_r+lambda_c;
+
+% 2.2 Wärmeleitfähigkeit von Wasser und Wasserdampf
+
+tmp=0;
+for i=1:5
+    tmp=tmp+Lk(i)/T_^(i-1);
+end
+lambda0_=sqrt(T_)/tmp;
+tmp=0;
+tmp1=0;
+for j=1:6
+    tmp=tmp+Lij(i,j)*(rho_-1)^(j-1);
+end
+for i=1:5
+    tmp1=tmp1+tmp*(1/T_-1)^(i-1);
+end
+lambda1_=exp(rho_*tmp1);
+lambda2_=0;
+lambda_=lambda0_*lambda1_+lambda2_;
+lambda_D=lambda_*lambda_stern;
+% 2.3 Wärmeleitfähigkeit von feuchten Luft
+lambda_feL=y_trL*lambda_trL/(y_trL+y_D*phi_LD)+y_D*lambda_D/(y_D+y_trL*phi_DL);
+%% 3 pezifische Enthalpie der feuchten Luft
+h_feL_ein=c_p_trL*T_feL_ein+X_feL_ein*(deltah0_v+c_p_D*T_feL_ein);
+h_feL_aus=c_p_trL*T_feL_aus+X_feL_aus*(deltah0_v+c_p_D*T_feL_aus);
+clearvars -except dm_feL dm_w h_w dm_kond delta_film eta_feL eta_D eta_trL lambda_trL h_feL_ein h_feL_aus lambda_feL

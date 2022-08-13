@@ -74,4 +74,13 @@ Residual=[10.72 0.2 1 0;
 T_c=132.6312;
 rho_c=10.4477;
 Hi=[1.67752 2.220462 0.6366564 -0.241605];
-
+Therm=importdata("ThermCond.txt");
+N=Therm(:,2);
+t=Therm(:,3);
+d=Therm(:,4);
+l=Therm(:,5);
+Lij=importdata("Lij.txt");
+Lk=[2.443221e-3 1.323095e-2 6.770357e-3 -3.454586e-3 4.096266e-4];
+lambda_stern=1e-3;
+c_p_D=1.86;
+deltah0_v=2500;
